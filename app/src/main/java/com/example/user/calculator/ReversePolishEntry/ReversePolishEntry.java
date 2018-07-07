@@ -8,6 +8,7 @@ public class ReversePolishEntry {
 
     private static final String OPERATORS = "+-*/";
     public static boolean flag = true;
+    public static boolean answer = true;
     private static final String delimiters = "()" + OPERATORS;
 
 
@@ -40,6 +41,10 @@ public class ReversePolishEntry {
         return false;
     }
 
+    public boolean isAnswer() {
+        return answer;
+    }
+
     public static ArrayList<String> parseExpression(String ms) {
         ArrayList<String> List = new ArrayList<String>();
         Stack<String> stack = new Stack<>();
@@ -51,6 +56,7 @@ public class ReversePolishEntry {
             if (!tokenizer.hasMoreTokens() && isOperator(curr)) {
                 //  System.out.println("Некорректное выражение.");
                 flag = false;
+                answer=false;
                 return List;
             }
             if (curr.equals(" ")) continue;
@@ -62,6 +68,7 @@ public class ReversePolishEntry {
                         if (stack.isEmpty()) {
                             //    System.out.println("Скобки не согласованы.");
                             flag = false;
+                            answer=false;
                             return List;
                         }
                     }
@@ -97,9 +104,11 @@ public class ReversePolishEntry {
             else {
                 System.out.println("Скобки не согласованы.");
                 flag = false;
+                answer=false;
                 return List;
             }
         }
+        answer=true;
         return List;
     }
 

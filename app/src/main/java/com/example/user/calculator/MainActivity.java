@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
                 clearAll();
                 break;
 
+            case R.id.button_un_divide:
+                un_divide();
+                break;
+
             case R.id.button_delete:
                 clear();
                 break;
@@ -75,6 +79,25 @@ public class MainActivity extends AppCompatActivity {
             case R.id.button_zero:
                 numbers(view);
                 break;
+        }
+    }
+
+    public void un_divide(){
+        String ms=expression.getText().toString();
+        String poslElement=ms.substring(ms.length()-1);
+        if(ms.equals(" ")) {
+            ms+="(-";
+            expression.setText(ms);
+        }
+        else{
+            if(OPERATORS.contains(poslElement)){
+                String predPoslElement=ms.substring(ms.length()-2,ms.length()-1);
+                ms+="(-";
+                expression.append(ms);
+                expression.setText(expression.getText().toString());
+                return;
+            }
+
         }
     }
 
@@ -109,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         SearchPointInDigit point = new SearchPointInDigit();
         String ms = expression.getText().toString();
 
-        if (ms.equals("")) {
+        if (ms.equals(" ")) {
             ms += "0.";
             expression.append(ms);
             expression.setText(expression.getText().toString());
@@ -195,8 +218,10 @@ public class MainActivity extends AppCompatActivity {
         ParseComputation parseComputation = new ParseComputation();
 
         ArrayList<String> temp = reversePolishEntry.parseExpression(ms);
-
-        resulttext.setText(parseComputation.calculate(temp));
+        if(reversePolishEntry.isAnswer())
+            resulttext.setText(parseComputation.calculate(temp));
+        else
+            resulttext.setText("Неверное выражение!");
 
     }
 
