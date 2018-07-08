@@ -85,16 +85,15 @@ public class MainActivity extends AppCompatActivity {
     public void un_divide(){
         String ms=expression.getText().toString();
         String poslElement=ms.substring(ms.length()-1);
-        if(ms.equals(" ")) {
+        if(ms.equals("")) {
             ms+="(-";
-            expression.setText(ms);
+            expression.append(ms);
         }
         else{
             if(OPERATORS.contains(poslElement)){
                 String predPoslElement=ms.substring(ms.length()-2,ms.length()-1);
                 ms+="(-";
                 expression.append(ms);
-                expression.setText(expression.getText().toString());
                 return;
             }
 
@@ -106,24 +105,29 @@ public class MainActivity extends AppCompatActivity {
         if (ms.equals(""))
             return;
         String posledniy = ms.substring(ms.length() - 1);
-        if (OPERATORS.contains(posledniy))
+        if (OPERATORS.contains(posledniy)){
+            ms=ms.substring(0,ms.length()-1);
+            expression.setText(ms);
+            expression.append(((Button) view).getText().toString());
             return;
+        }
         if (posledniy.equals("."))
             return;
         if (posledniy.equals("("))
             return;
         expression.append(((Button) view).getText().toString());
-        expression.setText(expression.getText().toString());
         return;
     }
 
     public void clearAll() {
-        expression.setText(" ");
-        resulttext.setText(" ");
+        expression.setText("");
+        resulttext.setText("");
     }
 
     public void clear() {
         String ms = expression.getText().toString();
+        if(ms.equals(""))
+            return;
         expression.setText(ms.substring(0, ms.length() - 1));
     }
 
@@ -132,23 +136,21 @@ public class MainActivity extends AppCompatActivity {
         SearchPointInDigit point = new SearchPointInDigit();
         String ms = expression.getText().toString();
 
-        if (ms.equals(" ")) {
+        if (ms.equals("")) {
             ms += "0.";
             expression.append(ms);
-            expression.setText(expression.getText().toString());
+            return;
         }
         String poslElement = ms.substring(ms.length() - 1);
 
         if (poslElement.equals("(")) {
             ms += "0.";
-            expression.append((ms));
-            expression.setText(expression.getText().toString());
+            expression.setText((ms));
             return;
         }
         if (poslElement.equals(")")) {
             ms += "*0.";
             expression.append((ms));
-            expression.setText(expression.getText().toString());
             return;
         }
         if (OPERATORS.contains(poslElement) || poslElement.equals(".")) {
@@ -169,29 +171,29 @@ public class MainActivity extends AppCompatActivity {
             String poslElement = ms.substring(ms.length() - 1);
             if (poslElement.equals("(")) {
                 expression.append("*(");
-                expression.setText(expression.getText().toString());
+                //expression.setText(expression.getText().toString());
                 return;
             } else if (poslElement.equals(".")) {
                 return;
             } else if (poslElement.equals(")")) {
                 expression.append(")");
-                expression.setText(expression.getText().toString());
+               // expression.setText(expression.getText().toString());
                 return;
             } else if (Digit.contains(poslElement) && !skeplSearch.skeplsSearch(ms)) {
                 expression.append("*(");
-                expression.setText(expression.getText().toString());
+               // expression.setText(expression.getText().toString());
                 return;
             } else if (Digit.contains(poslElement) && skeplSearch.skeplsSearch(ms)) {
                 expression.append(")");
-                expression.setText(expression.getText().toString());
+               // expression.setText(expression.getText().toString());
                 return;
             }
             expression.append("(");
-            expression.setText(expression.getText().toString());
+            //expression.setText(expression.getText().toString());
             return;
         } else {
             expression.append("(");
-            expression.setText(expression.getText().toString());
+            //expression.setText(expression.getText().toString());
         }
 
     }
@@ -207,13 +209,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         expression.append(((Button) view).getText().toString());
-        expression.setText(expression.getText().toString());
+
         return;
     }
 
     public void calculate() {
 
         String ms = expression.getText().toString();
+        if(ms.equals(""))
+            return;
         ReversePolishEntry reversePolishEntry = new ReversePolishEntry();
         ParseComputation parseComputation = new ParseComputation();
 

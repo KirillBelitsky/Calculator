@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 
 public class ReversePolishEntry {
 
-    private static final String OPERATORS = "+-*/";
+    private static final String OPERATORS = "+-*/^√";
     public static boolean flag = true;
     public static boolean answer = true;
     private static final String delimiters = "()" + OPERATORS;
