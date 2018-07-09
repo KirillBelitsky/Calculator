@@ -1,16 +1,22 @@
 package com.example.user.calculator;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.InflateException;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.view.Menu;
+import android.widget.Toast;
 
 import com.example.user.calculator.ReversePolishEntry.ParseComputation;
 import com.example.user.calculator.ReversePolishEntry.ReversePolishEntry;
 import com.example.user.calculator.Functions.SearchPointInDigit;
 import com.example.user.calculator.Functions.SkeplSearch;
+import com.example.user.calculator.Info;
 
 import java.util.ArrayList;
 
@@ -31,6 +37,27 @@ public class MainActivity extends AppCompatActivity {
         expression = findViewById(R.id.expression);
         resultEnd = findViewById(R.id.result_end);
     }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_activity,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_change_theme:
+                Toast.makeText(this,"Ку",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_about:
+                Intent intent=new Intent(this,Info.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     public void onClick(View view) {
 
