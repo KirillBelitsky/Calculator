@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="80" />
+                                                <entry key="scalingPercent" value="54" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -45,8 +45,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="a0a2a6" />
-                                      <entry key="foregroundImage" value="E:\Images\Calculator-icon.png" />
+                                      <entry key="backgroundColor" value="46a658" />
+                                      <entry key="foregroundImage" value="E:\Images\calculator.png" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -3,4 +3,10 @@
     <string name="about">About</string>
     <string name="change_theme">Change theme</string>
     <string name="author">Author : KirillBelitsky</string>
+    <string name="feedBack">Feedback</string>
+    <string name="email">Your email(not necessary):</string>
+    <string name="subject">Subject:</string>
+    <string name="message">Your message:</string>
+    <string name="send_button">Send</string>
+    <string name="text_view"> If you have wishes, noticed mistakes or want to contact us, write to us.</string>
 </resources>

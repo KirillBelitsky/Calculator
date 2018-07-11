@@ -1,5 +1,10 @@
 package com.example.user.calculator;
 
+import android.appwidget.AppWidgetManager;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,15 +13,21 @@ import android.view.InflateException;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.Menu;
 import android.widget.Toast;
+import android.support.v7.widget.SwitchCompat;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.app.AlertDialog;
+
 
 import com.example.user.calculator.ReversePolishEntry.ParseComputation;
 import com.example.user.calculator.ReversePolishEntry.ReversePolishEntry;
 import com.example.user.calculator.Functions.SearchPointInDigit;
 import com.example.user.calculator.Functions.SkeplSearch;
 import com.example.user.calculator.Info;
+
 
 import java.util.ArrayList;
 
@@ -26,12 +37,23 @@ public class MainActivity extends AppCompatActivity {
     private TextView resulttext;
     private TextView resultEnd;
     private TextView expression;
+    private boolean color=true;
     private static final String OPERATORS = "÷/*-+";
     private static final String Digit = "0123456789";
+    private SharedPreferences preferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferences = this.getSharedPreferences("Preference", MODE_PRIVATE);
+        if (preferences.getBoolean("appTheme", true)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+
         setContentView(R.layout.activity_simple);
         resulttext = findViewById(R.id.result);
         expression = findViewById(R.id.expression);
@@ -47,11 +69,15 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_change_theme:
-                Toast.makeText(this,"Ку",Toast.LENGTH_SHORT).show();
+                change_theme(item);
                 return true;
             case R.id.action_about:
                 Intent intent=new Intent(this,Info.class);
                 startActivity(intent);
+                return true;
+            case R.id.action_feedback:
+                Intent Intent =new Intent(this, FeedbackActivity.class);
+                startActivity(Intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -254,6 +280,17 @@ public class MainActivity extends AppCompatActivity {
         else
             resulttext.setText("Неверное выражение!");
 
+    }
+
+    public void change_theme(MenuItem item){
+        if (preferences.getBoolean("appTheme", true)) {
+            item.setTitle(getString(R.string.change_theme));
+            preferences.edit().putBoolean("appTheme", false).apply();
+        } else {
+            item.setTitle(getString(R.string.change_theme));
+            preferences.edit().putBoolean("appTheme", true).apply();
+        }
+        recreate();
     }
 
 }

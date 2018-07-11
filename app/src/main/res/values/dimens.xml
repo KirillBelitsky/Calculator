@@ -11,6 +11,7 @@
     <dimen name="button_text_size">28sp</dimen>
     <dimen name="display_text_size">50sp</dimen>
     <dimen name="result">31sp</dimen>
-    <dimen name="expression">31sp</dimen>
+    <dimen name="expression">28sp</dimen>
     <dimen name="result_end">60sp</dimen>
+    <dimen name="button_text">28sp</dimen>
 </resources>
