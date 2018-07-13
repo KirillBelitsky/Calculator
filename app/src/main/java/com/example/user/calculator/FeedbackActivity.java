@@ -79,8 +79,8 @@ public class FeedbackActivity extends AppCompatActivity {
             return true;
         }
 
-        protected void onPostExecute(Boolean aBoolean) {
-            if (aBoolean) {
+        protected void onPostExecute(Boolean tmp) {
+            if (tmp) {
                 Toast.makeText(FeedbackActivity.this,"Thank you!",
                         Toast.LENGTH_SHORT).show();
                 finish();
