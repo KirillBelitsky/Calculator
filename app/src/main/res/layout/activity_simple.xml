@@ -271,7 +271,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
             <Button
                 android:id="@+id/button_point"
-                android:layout_width="match_parent"
+                android:layout_width="353dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/colorBackground"
@@ -282,7 +282,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
             <Button
                 android:id="@+id/button_zero"
-                android:layout_width="match_parent"
+                android:layout_width="354dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/colorBackground"
@@ -292,19 +292,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 android:textSize="@dimen/button_text" />
 
             <Button
-                android:id="@+id/button_un_divide"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorBackground"
-                android:onClick="onClick"
-                android:text="+/-"
-                android:textColor="@color/color_expression"
-                android:textSize="@dimen/button_text" />
-
-            <Button
                 android:id="@+id/button_equally"
-                android:layout_width="match_parent"
+                android:layout_width="449dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/colorBackground"

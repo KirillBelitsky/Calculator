@@ -46,6 +46,7 @@ public class ReversePolishEntry {
     }
 
     public static ArrayList<String> parseExpression(String ms) {
+        int digit=0;
         ArrayList<String> List = new ArrayList<String>();
         Stack<String> stack = new Stack<>();
         StringTokenizer tokenizer = new StringTokenizer(ms, delimiters, true);
@@ -54,8 +55,13 @@ public class ReversePolishEntry {
         while (tokenizer.hasMoreTokens()) {
             curr = tokenizer.nextToken();
             if (!tokenizer.hasMoreTokens() && isOperator(curr)) {
-                //  System.out.println("Некорректное выражение.");
+                System.out.println("Некорректное выражение.");
                 flag = false;
+                answer=false;
+                return List;
+            }
+            if(!tokenizer.hasMoreTokens() && curr.equals("(")){
+                flag=false;
                 answer=false;
                 return List;
             }
@@ -73,9 +79,9 @@ public class ReversePolishEntry {
                         }
                     }
                     stack.pop();
-                    if (!stack.isEmpty() ) {
-                        List.add(stack.pop());
-                    }
+                   // if (!stack.isEmpty() ) {
+                    //    List.add(stack.pop());
+                   // }
                 }
                 else {
                     if (curr.equals("-") && (prev.equals("") || (isDelimiter(prev)  && !prev.equals(")")))) {
@@ -94,6 +100,7 @@ public class ReversePolishEntry {
             }
 
             else {
+                digit++;
                 List.add(curr);
             }
             prev = curr;
@@ -101,6 +108,7 @@ public class ReversePolishEntry {
 
         while (!stack.isEmpty()) {
             if (isOperator(stack.peek())) List.add(stack.pop());
+            else if(stack.peek().equals("(")) stack.pop();
             else {
                 System.out.println("Скобки не согласованы.");
                 flag = false;

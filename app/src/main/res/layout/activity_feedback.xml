@@ -32,7 +32,7 @@
             android:textColorHint="@color/hint_text"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/hint_text"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="36dp" />
 

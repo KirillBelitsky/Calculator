@@ -1,32 +1,22 @@
 package com.example.user.calculator;
 
-import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.InflateException;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.Menu;
-import android.widget.Toast;
-import android.support.v7.widget.SwitchCompat;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.app.AlertDialog;
 
 
 import com.example.user.calculator.ReversePolishEntry.ParseComputation;
 import com.example.user.calculator.ReversePolishEntry.ReversePolishEntry;
 import com.example.user.calculator.Functions.SearchPointInDigit;
-import com.example.user.calculator.Functions.SkeplSearch;
-import com.example.user.calculator.Info;
+import com.example.user.calculator.Functions.SkeplFunction;
 
 
 import java.util.ArrayList;
@@ -41,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String OPERATORS = "÷/*-+";
     private static final String Digit = "0123456789";
     private SharedPreferences preferences;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     public void onClick(View view) {
 
         switch (view.getId()) {
@@ -98,10 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.button_delete_all:
                 clearAll();
-                break;
-
-            case R.id.button_un_divide:
-                un_divide();
                 break;
 
             case R.id.button_delete:
@@ -135,41 +118,57 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void un_divide(){
-        String ms=expression.getText().toString();
-        String poslElement=ms.substring(ms.length()-1);
-        if(ms.equals("")) {
-            ms+="(-";
-            expression.append(ms);
-        }
-        else{
-            if(OPERATORS.contains(poslElement)){
-                String predPoslElement=ms.substring(ms.length()-2,ms.length()-1);
-                ms+="(-";
+    public void operations(View view) {
+
+        String ms = expression.getText().toString();
+        if (ms.equals("")){
+            if(view.getId()==R.id.button_divide){
+                ms+="-";
                 expression.append(ms);
                 return;
             }
-
+            else
+                return;
         }
-    }
-
-    public void operations(View view) {
-        String ms = expression.getText().toString();
-        if (ms.equals(""))
-            return;
         String posledniy = ms.substring(ms.length() - 1);
+       if (posledniy.equals("."))
+            return;
+       else if(posledniy.equals("-") && ms.length()==1)
+           return;
+       else if (posledniy.equals("(")){
+           if(view.getId()==R.id.button_divide){
+               ms+="-";
+               expression.setText(ms);
+               return;
+           }
+           else
+               return;
+       }
+       else if(Digit.contains(posledniy)){
+           expression.append(((Button) view).getText().toString());
+           return;
+       }
         if (OPERATORS.contains(posledniy)){
+           String predposledniy=ms.substring(ms.length()-2,ms.length()-1);
+           if(posledniy.equals("-") && predposledniy.equals("-"))
+               return;
+           else if(posledniy.equals("-") && OPERATORS.contains(predposledniy))
+               return;
+           else if(view.getId()==R.id.button_divide){
+                if(OPERATORS.contains(predposledniy))
+                    return;
+                else{
+                    ms+="-";
+                    expression.setText(ms);
+                }
+                return;
+            }
             ms=ms.substring(0,ms.length()-1);
             expression.setText(ms);
             expression.append(((Button) view).getText().toString());
             return;
         }
-        if (posledniy.equals("."))
-            return;
-        if (posledniy.equals("("))
-            return;
         expression.append(((Button) view).getText().toString());
-        return;
     }
 
     public void clearAll() {
@@ -220,33 +219,36 @@ public class MainActivity extends AppCompatActivity {
 
         String ms = expression.getText().toString();
         if (!ms.equals("")) {
-            SkeplSearch skeplSearch = new SkeplSearch();
+            SkeplFunction skeplFunction = new SkeplFunction();
             String poslElement = ms.substring(ms.length() - 1);
             if (poslElement.equals("(")) {
+                expression.append("(");
+                return;
+            }
+            else if (poslElement.equals(".")) {
+                return;
+            }
+            else if (poslElement.equals(")")) {
+                if(skeplFunction.closeSkepl(ms)){
+                    expression.append(")");
+                }
+                else
+                    expression.append("*(");
+                return;
+            }
+            else if (Digit.contains(poslElement) && !skeplFunction.skeplsSearch(ms)) {
                 expression.append("*(");
-                //expression.setText(expression.getText().toString());
                 return;
-            } else if (poslElement.equals(".")) {
-                return;
-            } else if (poslElement.equals(")")) {
+            }
+            else if (Digit.contains(poslElement) && skeplFunction.skeplsSearch(ms)) {
                 expression.append(")");
-               // expression.setText(expression.getText().toString());
-                return;
-            } else if (Digit.contains(poslElement) && !skeplSearch.skeplsSearch(ms)) {
-                expression.append("*(");
-               // expression.setText(expression.getText().toString());
-                return;
-            } else if (Digit.contains(poslElement) && skeplSearch.skeplsSearch(ms)) {
-                expression.append(")");
-               // expression.setText(expression.getText().toString());
                 return;
             }
             expression.append("(");
-            //expression.setText(expression.getText().toString());
             return;
-        } else {
+        }
+        else {
             expression.append("(");
-            //expression.setText(expression.getText().toString());
         }
 
     }
