@@ -15,7 +15,7 @@
             android:layout_height="81dp"
             android:text="@string/author"
             android:gravity="center_horizontal"
-            android:textSize="55px"
+            android:textSize="50px"
             tools:layout_editor_absoluteX="38dp"
             tools:layout_editor_absoluteY="200dp" />
     </LinearLayout>

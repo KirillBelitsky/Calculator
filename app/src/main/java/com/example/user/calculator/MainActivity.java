@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_simple);
         resulttext = findViewById(R.id.result);
         expression = findViewById(R.id.expression);
-        resultEnd = findViewById(R.id.result_end);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

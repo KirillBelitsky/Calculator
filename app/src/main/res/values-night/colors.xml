@@ -7,4 +7,5 @@
     <color name="color_expression">#FAFAFA</color>
     <color name="colorBackground">#404040</color>
     <color name="hint_text">#f57d00</color>
+    <color name="text">#ce6800</color>
 </resources>
